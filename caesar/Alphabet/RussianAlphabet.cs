@@ -5,7 +5,7 @@ public class RussianAlphabet : AlphabetBase
     protected override AlphabetBounds LowerCaseAlphabetBounds { get; }
     protected override AlphabetBounds UpperCaseAlphabetBounds { get; }
     private const int ShiftToZhLetter = 6; // Shift to the right from first letter
-    private const int ShiftToYoLetter = 2; // Shift to the right from last letter
+    private const int ShiftToYoLetter = 2; // Shift to the right from last letter. Unfortunately it works only for lower case letters
 
     public RussianAlphabet()
     {
@@ -22,13 +22,18 @@ public class RussianAlphabet : AlphabetBase
 
     public override char GetShiftedLetter(char letter, int shift, AlphabetBounds bounds)
     {
-        var yoLetter = GetYo(bounds);
-        var (shifted, newShift) = ShiftIncludingYo(letter, shift, bounds, yoLetter);
-        while (newShift >= 0)
-            (shifted, newShift) = ShiftIncludingYo(bounds.FirstLetter, newShift, bounds, yoLetter);
-        return (char)shifted;
+        var shifted = GetShiftedLetter(char.ToLower(letter), shift);
+        return bounds.Status == BoundStatus.Upper ? char.ToUpper(shifted) : shifted;
     }
 
+    private char GetShiftedLetter(char letter, int shift)
+    {
+        var yoLetter = GetYo(LowerCaseAlphabetBounds);
+        var (shifted, newShift) = ShiftIncludingYo(letter, shift, LowerCaseAlphabetBounds, yoLetter);
+        while (newShift >= 0)
+            (shifted, newShift) = ShiftIncludingYo(LowerCaseAlphabetBounds.FirstLetter, newShift, LowerCaseAlphabetBounds, yoLetter);
+        return (char)shifted;
+    }
     private static (int shifted, int newShisft) ShiftIncludingYo(char letter, int shift, AlphabetBounds bounds,
         int yoLetter)
     {

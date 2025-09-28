@@ -5,7 +5,7 @@ namespace caesar;
 
 public static class AppSettings
 {
-    public const int CipherShift = 3;
+    public const int CipherShift = 36;
     public static readonly List<ApplicationActionBase> Actions = new()
     {
         new EncryptWordAction("Encrypt the word"),
