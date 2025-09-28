@@ -36,7 +36,7 @@ public class ApplicationActionBase
     protected static void PrintResult(string message)
     {
         AnsiConsole.WriteLine(message);
-        AnsiConsole.WriteLine("\nPress any key to continue...");
+        AnsiConsole.Write("\nPress any key to continue...");
         Console.ReadKey();
     }
 

@@ -1,6 +1,7 @@
 using System.Text;
 using caesar.Alphabet;
 using caesar.Models;
+using Spectre.Console;
 
 namespace caesar.Actions;
 
@@ -34,19 +35,11 @@ public class EncryptWordAction(string actionName) : ApplicationActionBase(action
     {
         var ruAlphabetBounds = RussianAlphabet.GetBounds(letter);
         if (ruAlphabetBounds.Status is not BoundStatus.NotInBounds)
-            return ProcessShift(letter, ruAlphabetBounds);
+            return RussianAlphabet.GetShiftedLetter(letter, Shift, ruAlphabetBounds);
 
         var enAlphabetBounds = EnglishAlphabet.GetBounds(letter);
         if (enAlphabetBounds.Status is not BoundStatus.NotInBounds)
-            return ProcessShift(letter, ruAlphabetBounds);
+            return EnglishAlphabet.GetShiftedLetter(letter, Shift, enAlphabetBounds);
         throw new ArgumentException("Incorrect symbol");
-    }
-
-    private static char ProcessShift(char letter, AlphabetBounds bounds)
-    {
-        var shifted = letter + Shift;
-        if (shifted <= bounds.LastLetter)
-            return (char)shifted;
-        return (char)(bounds.FirstLetter + shifted - bounds.LastLetter - 1);
     }
 }

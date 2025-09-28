@@ -8,11 +8,11 @@ class Program
 {
     //enLower = abcdefghijklmnopqrstuvwxyz
     //enUpper = ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    //ruLower = абвгдеёжзийклмнопрстуфчцчшщъыьэюя
+    //ruLower = абвгдеёжзийклмнопрстуфхцчшщъыьэюя
     //ruUpper = АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ 
     static void Main(string[] args)
     {
-        PrintHeader();
+        /*PrintHeader();
         var exit = false;
         while (!exit)
         {
@@ -25,7 +25,7 @@ class Program
                 .PerformAction();
             exit = HandleResult(result);
             AnsiConsole.Clear();
-        }
+        }*/
     }
 
     private static bool HandleResult(ActionResult result)
