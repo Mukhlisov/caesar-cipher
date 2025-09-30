@@ -17,10 +17,11 @@ public class AlphabetBase
     public virtual char GetShiftedLetter(char letter, int shift, AlphabetBounds bounds)
     {
         var shifted = letter + shift;
-        while (shifted > bounds.LastLetter)
+        var newShift = shifted - bounds.LastLetter - 1;
+        while (newShift >= 0)
         {
-            var newShift = shifted - bounds.LastLetter - 1;
             shifted = bounds.FirstLetter + newShift;
+            newShift = shifted - bounds.LastLetter - 1;
         }
         return (char)shifted;
     }
